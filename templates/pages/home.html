@@ -1,0 +1,1098 @@
+<!-- templates/pages/home.html -->
+{% extends 'base.html' %}
+
+{% block title %}Beranda - Lembaga Pemasyarakatan Kelas III Saumlaki{% endblock %}
+
+{% block content %}
+<!-- Hero Section dengan Gradient yang Konsisten -->
+<div class="container-fluid py-5" id="hero" style="
+    background: linear-gradient(135deg, #1a237e 0%, #5563cf 50%, #f5f5f5 100%);
+    min-height: 80vh;
+    margin: 0;
+    padding: 0;
+">
+    <div class="row g-0 align-items-center" style="min-height: 80vh;">
+        <div class="col-lg-6">
+            <div class="container py-5">
+                <!-- Logo dan Nama Kementerian -->
+                <div class="text-start mb-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="/media/tentang_kami/nobg.png" 
+                             alt="Logo Kemenkumham" 
+                             style="width: 80px; height: auto; margin-right: 15px;"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/80x80/1a237e/ffffff?text=LOGO';">
+                        <div>
+                            <p class="text-white mb-0" style="
+                                font-family: 'Arial', sans-serif;
+                                font-size: 0.9rem;
+                                opacity: 0.9;
+                                letter-spacing: 0.5px;
+                            ">
+                                Kementerian Imigrasi dan Pemasyarakatan<br>Republik Indonesia
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Judul Utama -->
+                <h1 class="display-4 fw-bold text-white mb-4" style="
+                    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+                    font-family: 'Verdana', 'Geneva', Tahoma, sans-serif;
+                    letter-spacing: 1.5px;
+                    line-height: 1.3;
+                ">
+                    SELAMAT DATANG DI<br>
+                    <span style="color: #ffd700;">LEMBAGA PEMASYARAKATAN</span><br>
+                    KELAS III SAUMLAKI
+                </h1>
+                
+                <!-- Moto -->
+                <div class="mb-4" style="border-left: 4px solid #ffd700; padding-left: 20px;">
+                    <p class="text-white fs-5 fst-italic" style="
+                        font-family: 'Georgia', serif;
+                        line-height: 1.6;
+                        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+                    ">
+                        <i class="fas fa-quote-left text-warning me-2 opacity-75"></i>
+                        Kami tidak mengurung masa lalu, tapi mengelolanya menjadi bijak 
+                        dengan memanusiakan manusia.
+                        <i class="fas fa-quote-right text-warning ms-2 opacity-75"></i>
+                    </p>
+                </div>
+                
+                <!-- Deskripsi Singkat -->
+                <p class="lead text-white mb-4" style="opacity: 0.95; line-height: 1.8;">
+                    Lembaga Pemasyarakatan Kelas III Saumlaki berkomitmen untuk melaksanakan 
+                    sistem pemasyarakatan yang berorientasi pada pembinaan, pendidikan, dan 
+                    pemberdayaan warga binaan demi terciptanya reintegrasi sosial yang baik.
+                </p>
+            </div>
+        </div>
+        
+        <!-- Gambar Ilustrasi -->
+        <div class="col-lg-6 d-none d-lg-block">
+            <div class="position-relative h-100">
+                <div class="position-absolute top-50 start-0 translate-middle-y w-100 text-center p-4">
+                    <img src="/media/news/2026/02/05/1000490280-6981c86c34777c5e7479fad2.jpg" 
+                         alt="Lembaga Pemasyarakatan Kelas III Saumlaki"
+                         class="img-fluid"
+                         style="max-height: 500px; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.3);"
+                         onerror="this.onerror=null; this.src='https://via.placeholder.com/500x500/1a237e/ffffff?text=LAPAS+SAUMLAKI';">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Navigation -->
+<div class="container-fluid py-4" style="background: rgba(26, 35, 126, 0.9);">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="d-flex flex-wrap justify-content-center gap-4">
+                    <!-- Struktur Organisasi -->
+                    <a href="#struktur" class="quick-nav-item">
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="quick-nav-icon mb-2">
+                                <i class="fas fa-sitemap fa-2x"></i>
+                            </div>
+                            <span class="quick-nav-text">Struktur Organisasi</span>
+                            <span class="quick-nav-subtext">Struktur & Pimpinan</span>
+                        </div>
+                    </a>
+                    
+                    <!-- Berita Terbaru -->
+                    <a href="#latest-news" class="quick-nav-item">
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="quick-nav-icon mb-2">
+                                <i class="fas fa-newspaper fa-2x"></i>
+                            </div>
+                            <span class="quick-nav-text">Berita</span>
+                            <span class="quick-nav-subtext">Informasi Terkini</span>
+                        </div>
+                    </a>
+                    
+                    <!-- Dokumen -->
+                    <a href="#latest-documents" class="quick-nav-item">
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="quick-nav-icon mb-2">
+                                <i class="fas fa-file-alt fa-2x"></i>
+                            </div>
+                            <span class="quick-nav-text">Dokumen</span>
+                            <span class="quick-nav-subtext">Publikasi Resmi</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== STRUKTUR ORGANISASI ========== -->
+<div id="struktur" class="container-fluid bg-light py-5">
+    <div class="container">
+        <!-- Judul Section -->
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-8 text-center">
+                <h2 class="text-primary mb-3" style="
+                    font-family: 'Verdana', sans-serif;
+                    font-weight: 700;
+                    letter-spacing: 1px;
+                ">
+                    <i class="fas fa-sitemap me-2"></i>
+                    STRUKTUR ORGANISASI
+                </h2>
+                <p class="text-muted mb-4">
+                    Lembaga Pemasyarakatan Kelas IIB - Kepemimpinan yang solid dan profesional
+                </p>
+                <!-- Garis Dekoratif -->
+                <div style="
+                    width: 100px;
+                    height: 3px;
+                    background: linear-gradient(90deg, #1a237e 0%, #ffd700 100%);
+                    margin: 0 auto 30px;
+                    border-radius: 2px;
+                "></div>
+            </div>
+        </div>
+
+        <!-- Baris 1: Kepala Lapas -->
+        <div class="row justify-content-center mb-4">
+            <div class="col-lg-6 col-md-8">
+                <div class="service-card h-100 text-center p-4">
+                    <img src="https://ui-avatars.com/api/?name=PRIANGGORO+AGUNG+WIBOWO&size=120&background=1a237e&color=ffd700&length=3&bold=true"
+                         alt="Kepala Lapas"
+                         class="img-fluid rounded-circle mb-3 shadow-sm"
+                         style="width: 120px; height: 120px; object-fit: cover; border: 4px solid white;">
+                    <h4 class="service-title fw-bold mb-1" style="font-size: 1.5rem;">
+                        PRIANGGORO AGUNG WIBOWO
+                    </h4>
+                    <p class="fw-bold text-primary mb-2" style="font-size: 1.1rem;">
+                        <i class="fas fa-crown me-1" style="color: #ffd700;"></i> 
+                        Kepala Lapas
+                    </p>
+                    <p class="service-description small text-muted px-3">
+                        Memimpin dan bertanggung jawab atas seluruh kegiatan pembinaan, keamanan, 
+                        serta pelayanan di Lembaga Pemasyarakatan.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Baris 2: Kepala Urusan Tata Usaha -->
+        <div class="row justify-content-end mb-4">
+            <div class="col-lg-6 col-md-8">
+                <div class="service-card h-100 text-center p-4">
+                    <img src="https://ui-avatars.com/api/?name=HENDRA+POLJANDRY+PUTUHENA&size=110&background=1a237e&color=ffd700&length=3&bold=true"
+                         alt="Kepala Urusan Tata Usaha"
+                         class="img-fluid rounded-circle mb-3 shadow-sm"
+                         style="width: 110px; height: 110px; object-fit: cover; border: 4px solid white;">
+                    <h4 class="service-title fw-bold mb-1">
+                        HENDRA POLJANDRY PUTUHENA
+                    </h4>
+                    <p class="fw-bold text-primary mb-2">
+                        <i class="fas fa-file-alt me-1"></i>
+                        Kepala Urusan Tata Usaha
+                    </p>
+                    <p class="service-description small text-muted px-3">
+                        Mengelola administrasi, keuangan, kepegawaian, dan tata usaha 
+                        lembaga secara transparan dan akuntabel.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Baris 3: Tiga Kepala Subseksi -->
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="service-card h-100 text-center p-4">
+                    <img src="https://ui-avatars.com/api/?name=MELKIANUS+ABOHK+JEMPORMASSE&size=100&background=1a237e&color=ffd700&length=3&bold=true"
+                         alt="Kepala Subseksi Keamanan"
+                         class="img-fluid rounded-circle mb-3 shadow-sm"
+                         style="width: 100px; height: 100px; object-fit: cover; border: 4px solid white;">
+                    <h5 class="service-title fw-bold mb-1">
+                        MELKIANUS ABOHK JEMPORMASSE
+                    </h5>
+                    <p class="fw-bold text-primary mb-2" style="font-size: 0.95rem;">
+                        <i class="fas fa-shield-alt me-1"></i>
+                        Ka. Subsi Keamanan & Ketertiban
+                    </p>
+                    <p class="service-description small text-muted">
+                        Menjamin keamanan, ketertiban, dan disiplin di lingkungan lapas.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service-card h-100 text-center p-4">
+                    <img src="https://ui-avatars.com/api/?name=ANDREY+REYNOLD+MASPAITELLA&size=100&background=1a237e&color=ffd700&length=3&bold=true"
+                         alt="Kepala Subseksi Pembinaan"
+                         class="img-fluid rounded-circle mb-3 shadow-sm"
+                         style="width: 100px; height: 100px; object-fit: cover; border: 4px solid white;">
+                    <h5 class="service-title fw-bold mb-1">
+                        ANDREY REYNOLD MASPAITELLA
+                    </h5>
+                    <p class="fw-bold text-primary mb-2" style="font-size: 0.95rem;">
+                        <i class="fas fa-book-open me-1"></i>
+                        Ka. Subsi Pembinaan
+                    </p>
+                    <p class="service-description small text-muted">
+                        Melaksanakan program pembinaan kepribadian dan kemandirian warga binaan.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service-card h-100 text-center p-4">
+                    <img src="https://ui-avatars.com/api/?name=DAVID+EDUARD+PHILIPPUS&size=100&background=1a237e&color=ffd700&length=3&bold=true"
+                         alt="Kepala Subseksi Admisi"
+                         class="img-fluid rounded-circle mb-3 shadow-sm"
+                         style="width: 100px; height: 100px; object-fit: cover; border: 4px solid white;">
+                    <h5 class="service-title fw-bold mb-1">
+                        DAVID EDUARD PHILIPPUS
+                    </h5>
+                    <p class="fw-bold text-primary mb-2" style="font-size: 0.95rem;">
+                        <i class="fas fa-clipboard-list me-1"></i>
+                        Ka. Subsi Admisi & Orientasi
+                    </p>
+                    <p class="service-description small text-muted">
+                        Mengelola penerimaan, pendaftaran, dan orientasi awal warga binaan baru.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Keterangan hierarki (opsional) -->
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                <p class="text-muted small">
+                    <i class="fas fa-arrow-up me-1" style="color: #1a237e;"></i> 
+                    Struktur kepemimpinan berdasarkan Keputusan Menteri Hukum dan HAM
+                    <i class="fas fa-arrow-down ms-1" style="color: #1a237e;"></i>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== FLOATING WIDGET: SURVEY + BACK TO TOP ========== -->
+ <!-- ========== IKON SURVEY (POSISI FIXED KANAN BAWAH) ========== -->
+<a href="{{ survey_link }}" target="_blank" class="survey-icon" ...>
+
+<a href="https://link-ikm-lapas.com" 
+   target="_blank" 
+   class="survey-icon" 
+   data-bs-toggle="tooltip" 
+   data-bs-placement="left" 
+   title="Survey Kepuasan Masyarakat">
+    <i class="fas fa-poll"></i>
+</a>
+<!-- <div style="position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 12px; z-index: 9999;"> -->
+    <!-- Ikon Survey Kepuasan (IKM) - di atas -->
+    <!-- <a href="#" id="survey-link"
+       class="d-flex justify-content-center align-items-center rounded-circle shadow-lg"
+       style="width: 56px; height: 56px; background-color: #1a237e; transition: all 0.3s ease;"
+       aria-label="Survey Kepuasan Masyarakat (IKM)"
+       title="Survey Kepuasan Masyarakat (IKM)"
+       target="_blank" rel="noopener noreferrer">
+        <i class="fas fa-poll fa-2x" style="color: #ffd700;"></i>
+    </a> -->
+
+    <!-- Tombol Panah ke Atas (Back to Top) - di bawah -->
+    <!-- <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' });"
+            class="d-flex justify-content-center align-items-center rounded-circle shadow-lg border-0"
+            style="width: 56px; height: 56px; background-color: #1a237e; cursor: pointer; transition: all 0.3s ease;"
+            aria-label="Kembali ke atas"
+            title="Kembali ke atas">
+        <i class="fas fa-arrow-up fa-2x" style="color: #ffd700;"></i>
+    </button>
+</div> -->
+
+<!-- Stats Section -->
+<div class="container-fluid py-5" style="
+    background: linear-gradient(rgba(26, 35, 126, 0.95), rgba(26, 35, 126, 0.85)),
+                url('https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-8 text-center">
+                <h2 class="text-white mb-4">LAPAS KELAS III SAUMLAKI DALAM ANGKA</h2>
+                <p class="text-white-50">Statistik dan capaian yang telah diraih</p>
+            </div>
+        </div>
+        <div class="row g-4 text-center">
+            <!-- Warga Binaan -->
+            <div class="col-md-6 col-lg-3">
+                <div class="stat-card h-100">
+                    <div class="stat-number mb-2" data-count="{{ warga.total|default:0 }}">0</div>
+                    <div class="stat-title">Warga Binaan</div>
+                    <div class="stat-subtitle small mt-2">
+                        <span class="d-block">Narapidana: {{ warga.narapidana|default:0 }}</span>
+                        <span class="d-block">Tahanan: {{ warga.tahanan|default:0 }}</span>
+                        <span class="d-block">Titipan: {{ warga.titipan|default:0 }}</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Petugas -->
+            <div class="col-md-6 col-lg-3">
+                <div class="stat-card h-100">
+                    <div class="stat-number mb-2" data-count="{{ petugas.jumlah|default:0 }}">0</div>
+                    <div class="stat-title">Petugas Berdedikasi</div>
+                    <p class="stat-subtitle small">SDM profesional</p>
+                </div>
+            </div>
+            <!-- Program Pembinaan -->
+            <div class="col-md-6 col-lg-3">
+                <div class="stat-card h-100">
+                    <div class="stat-number mb-2" data-count="{{ program.jumlah|default:0 }}">0</div>
+                    <div class="stat-title">Program Pembinaan</div>
+                    <p class="stat-subtitle small">Aktif berjalan</p>
+                </div>
+            </div>
+            <!-- Kepuasan Layanan -->
+            <div class="col-md-6 col-lg-3">
+                <div class="stat-card h-100">
+                    <div class="stat-number mb-2" data-count="{{ kepuasan|default:0 }}">0</div>
+                    <div class="stat-title">Kepuasan Layanan</div>
+                    <p class="stat-subtitle small">{{ kepuasan|default:0 }}% masyarakat puas</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Latest News Section -->
+<div id="latest-news" class="container-fluid bg-white py-5">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-8 text-center">
+                <h2 class="text-primary mb-3">
+                    <i class="fas fa-newspaper me-2"></i>
+                    BERITA TERBARU
+                </h2>
+                <p class="text-muted">Informasi terkini dari Lembaga Pemasyarakatan Kelas III Saumlaki</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            {% for news_item in latest_news|slice:":3" %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="news-card h-100">
+                    <div class="news-image">
+                        {% if news_item.image %}
+                        <img src="{{ news_item.image.url }}" class="img-fluid" alt="{{ news_item.title }}">
+                        {% else %}
+                        <div class="no-image">
+                            <i class="fas fa-newspaper fa-4x"></i>
+                        </div>
+                        {% endif %}
+                        <div class="news-date">
+                            <span class="day">{{ news_item.published_date|date:"d" }}</span>
+                            <span class="month">{{ news_item.published_date|date:"M" }}</span>
+                        </div>
+                    </div>
+                    <div class="news-content p-4">
+                        <div class="news-category mb-2">
+                            <span class="badge bg-primary">Berita</span>
+                        </div>
+                        <h5 class="news-title mb-3">{{ news_item.title|truncatechars:60 }}</h5>
+                        <p class="news-excerpt mb-4">{{ news_item.content|striptags|truncatewords:25 }}</p>
+                        <a href="{% url 'news_detail' news_item.slug %}" class="news-read-more">
+                            Baca Selengkapnya <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="text-center py-5">
+                    <i class="fas fa-newspaper fa-4x text-muted mb-4"></i>
+                    <h4 class="text-muted mb-3">Belum ada berita tersedia</h4>
+                    <p class="text-muted">Berita terbaru akan segera dipublikasikan</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% if latest_news %}
+        <div class="text-center mt-4">
+            <a href="{% url 'news_list' %}" class="btn btn-success btn-lg px-5" style="
+                background: linear-gradient(135deg, #256cd6 0%, #436bd8 100%);
+                border: none;
+                border-radius: 20px;
+                font-weight: 600;
+                padding: 0.75rem 2.5rem;
+                transition: all 0.3s ease;
+                box-shadow: 0 5px 15px rgba(75, 89, 218, 0.3);
+            ">
+                <i class="fas fa-folder-open me-2"></i>Lihat Semua Berita
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Latest Documents Section -->
+<div id="latest-documents" class="container-fluid bg-light py-5">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-8 text-center">
+                <h2 class="text-primary mb-3">
+                    <i class="fas fa-file-alt me-2"></i>
+                    DOKUMEN TERBARU
+                </h2>
+                <p class="text-muted">Preview dokumen resmi dan publikasi Lembaga Pemasyarakatan</p>
+                
+                <!-- Garis Dekoratif -->
+                <div style="
+                    width: 100px;
+                    height: 3px;
+                    background: linear-gradient(90deg, #1a237e 0%, #ffd700 100%);
+                    margin: 0 auto 30px;
+                    border-radius: 2px;
+                "></div>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center">
+            {% for document in latest_documents|slice:":3" %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="document-card-preview h-100">
+                    <div class="document-icon-preview p-4 text-center" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+                        <i class="fas {{ document.icon_class }} fa-4x mb-3"></i>
+                        <span class="badge bg-primary">{{ document.file_type }}</span>
+                    </div>
+                    <div class="document-content-preview p-4">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <span class="badge bg-light text-dark">{{ document.category }}</span>
+                            <small class="text-muted">{{ document.file_size }}</small>
+                        </div>
+                        <h6 class="document-title-preview mb-3">{{ document.title }}</h6>
+                        <p class="document-description-preview small text-muted mb-4">{{ document.description }}</p>
+                        
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <small class="text-muted">
+                                <i class="fas fa-calendar-alt me-1"></i>
+                                {{ document.upload_date }}
+                            </small>
+                            <a href="{% url 'document_list' %}" class="document-preview-link">
+                                <i class="fas fa-eye me-1"></i> Preview
+                                
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="text-center py-5">
+                    <i class="fas fa-file-alt fa-4x text-muted mb-4"></i>
+                    <h4 class="text-muted mb-3">Belum ada dokumen tersedia</h4>
+                    <p class="text-muted">Dokumen akan segera diunggah</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-5"> 
+            <a href="{% url 'document_list' %}" class="btn btn-success btn-lg px-5" style="
+                background: linear-gradient(135deg, #256cd6 0%, #436bd8 100%);
+                border: none;
+                border-radius: 20px;
+                font-weight: 600;
+                padding: 0.75rem 2.5rem;
+                transition: all 0.3s ease;
+                box-shadow: 0 5px 15px rgba(75, 89, 218, 0.3);
+            ">
+                <i class="fas fa-folder-open me-2"></i>Lihat Semua Dokumen
+            </a>
+            <p class="text-muted mt-3" style="font-size: 0.9rem;">
+                <i class="fas fa-info-circle me-1"></i>
+                Total {{ latest_documents|length }} dokumen tersedia di arsip
+            </p>
+        </div>
+    </div>
+</div>
+<!-- Call to Action -->
+<div class="container-fluid py-5" style="
+    background: linear-gradient(135deg, #1a237e 0%, #5563cf 100%);
+    color: white;
+">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h3 class="mb-3">Butuh Informasi Lebih Lanjut?</h3>
+                <p class="mb-0">Hubungi kami untuk pertanyaan, informasi, atau layanan lainnya yang Anda butuhkan.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a href="#hero" class="btn btn-warning btn-lg px-5 back-to-top-btn">
+                    <i class="fas fa-arrow-up me-2"></i>Kembali ke Atas
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Styles for Home Page -->
+<style>
+/* Gaya untuk ikon survey fixed di kanan bawah */
+.survey-icon {
+    position: fixed;
+    bottom: 90px;    /* naikkan 90px dari bawah (agar di atas tombol panah) */
+    right: 28px;     /* jarak dari kanan */
+    background-color: #1a237e; /* biru tua sesuai tema */
+    color: #ffd700;  /* emas */
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    z-index: 9999;   /* selalu di atas konten lain */
+    text-decoration: none;
+}
+
+.survey-icon:hover {
+    background-color: #ffd700;
+    color: #1a237e;
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+}
+
+/* Jika tombol panah Anda memiliki class atau id tertentu, 
+   sesuaikan nilai bottom agar ikon survey berada di atasnya.
+   Contoh: jika tombol panah memiliki class 'back-to-top' dan berada di bottom: 20px,
+   maka ikon survey diberi bottom: 90px (20px + 60px + 10px jarak). */
+
+    /* Hero Section */
+    .hero-section {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    /* Quick Navigation */
+    .quick-nav-item {
+        display: inline-block;
+        padding: 1.2rem 1.5rem;
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        text-decoration: none;
+        color: white;
+        min-width: 120px;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(5px);
+    }
+    
+    .quick-nav-item:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: #ffd700;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .quick-nav-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        transition: all 0.3s ease;
+    }
+    
+    .quick-nav-item:hover .quick-nav-icon {
+        background: linear-gradient(135deg, #ffd700, #ffed4e);
+        transform: scale(1.1);
+    }
+    
+    .quick-nav-text {
+        font-family: 'Verdana', sans-serif;
+        font-weight: bold;
+        font-size: 0.9rem;
+        margin-bottom: 0.2rem;
+    }
+    
+    .quick-nav-subtext {
+        font-size: 0.75rem;
+        opacity: 0.9;
+    }
+    
+    /* Service Cards */
+    .service-card {
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(26, 35, 126, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(26, 35, 126, 0.15);
+        border-color: #1a237e;
+    }
+    
+    .service-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, rgba(26, 35, 126, 0.1), rgba(26, 35, 126, 0.2));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        color: #1a237e;
+    }
+    
+    .service-title {
+        color: #1a237e;
+        font-weight: 700;
+        text-align: center;
+    }
+    
+    .service-description {
+        color: #666;
+        text-align: center;
+        line-height: 1.6;
+    }
+    
+    .service-info p {
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+    
+    /* Stats */
+    .stat-card {
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+    
+    .stat-card:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-5px);
+    }
+    
+    .stat-number {
+        font-size: 3rem;
+        font-weight: 800;
+        color: #ffd700;
+        line-height: 1;
+    }
+    
+    .stat-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: white;
+        margin-bottom: 0.5rem;
+    }
+    
+    .stat-subtitle {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+    }
+    
+    /* News Cards */
+    .news-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        border: 1px solid #eee;
+        transition: all 0.3s ease;
+    }
+    
+    .news-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(26, 35, 126, 0.15);
+    }
+    
+    .news-image {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+    }
+    
+    .news-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    
+    .news-card:hover .news-image img {
+        transform: scale(1.05);
+    }
+    
+    .no-image {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #1a237e, #5563cf);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+    
+    .news-date {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: #1a237e;
+        color: white;
+        padding: 10px;
+        border-radius: 8px;
+        text-align: center;
+        line-height: 1;
+    }
+    
+    .news-date .day {
+        font-size: 1.5rem;
+        font-weight: bold;
+        display: block;
+    }
+    
+    .news-date .month {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+    }
+    
+    .news-title {
+        color: #1a237e;
+        font-weight: 700;
+        line-height: 1.4;
+    }
+    
+    .news-excerpt {
+        color: #666;
+        line-height: 1.6;
+    }
+    
+    .news-read-more {
+        color: #1a237e;
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+    }
+    
+    .news-read-more:hover {
+        color: #5563cf;
+    }
+    
+    /* Document Cards */
+    .document-card {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        border: 1px solid #eee;
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+    
+    .document-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(26, 35, 126, 0.15);
+    }
+    
+    .document-icon {
+        color: #1a237e;
+    }
+    
+    .document-title {
+        color: #1a237e;
+        font-weight: 700;
+        line-height: 1.4;
+    }
+    
+    .document-description {
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+    
+    .document-download {
+        display: inline-block;
+        background: linear-gradient(135deg, #1a237e, #5563cf);
+        color: white;
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .document-download:hover {
+        background: linear-gradient(135deg, #5563cf, #1a237e);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(26, 35, 126, 0.3);
+    }
+    
+    /* Animations */
+    .fade-in-up {
+        animation: fadeInUp 0.8s ease-out;
+    }
+    
+    @keyframes fadeInUp {
+        from { 
+            opacity: 0; 
+            transform: translateY(30px); 
+        }
+        to { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .display-4 {
+            font-size: 2rem !important;
+        }
+        
+        .quick-nav-item {
+            padding: 1rem;
+            min-width: 100px;
+        }
+        
+        .quick-nav-icon {
+            width: 50px;
+            height: 50px;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+        }
+        
+        .btn-lg {
+            padding: 0.75rem 1.5rem !important;
+        }
+    }
+        /* Back to Top Button */
+    .back-to-top-btn {
+        background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+        border: none;
+        border-radius: 50px;
+        color: #1a237e;
+        font-weight: 700;
+        padding: 0.75rem 2rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+    }
+
+    .back-to-top-btn:hover {
+        background: linear-gradient(135deg, #ffed4e 0%, #ffd700 100%);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
+        color: #1a237e;
+    }
+
+    .back-to-top-btn:active {
+        transform: translateY(0);
+    }
+    /* Document Preview Cards */
+.document-card-preview {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid #eee;
+    transition: all 0.3s ease;
+}
+
+.document-card-preview:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(26, 35, 126, 0.15);
+    border-color: #1a237e;
+}
+
+.document-icon-preview {
+    border-bottom: 1px solid #eee;
+    transition: all 0.3s ease;
+}
+
+.document-card-preview:hover .document-icon-preview {
+    background: linear-gradient(135deg, #1a237e 0%, #5563cf 100%) !important;
+}
+
+.document-card-preview:hover .document-icon-preview i {
+    color: white !important;
+    transform: scale(1.1);
+}
+
+.document-card-preview:hover .document-icon-preview .badge {
+    background: rgba(255, 255, 255, 0.9) !important;
+    color: #1a237e !important;
+}
+
+.document-content-preview {
+    position: relative;
+}
+
+.document-title-preview {
+    color: #1a237e;
+    font-weight: 700;
+    line-height: 1.4;
+    min-height: 56px;
+    font-size: 1.1rem;
+}
+
+.document-description-preview {
+    line-height: 1.6;
+    min-height: 60px;
+}
+
+.document-preview-link {
+    display: inline-block;
+    background: linear-gradient(135deg, #1a237e, #5563cf);
+    color: white;
+    padding: 6px 15px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.document-preview-link:hover {
+    background: linear-gradient(135deg, #5563cf, #1a237e);
+    transform: translateX(3px);
+    box-shadow: 0 5px 15px rgba(26, 35, 126, 0.3);
+    color: white;
+}
+
+/* Responsive untuk dokumen preview */
+@media (max-width: 768px) {
+    .document-title-preview {
+        font-size: 1rem;
+        min-height: auto;
+    }
+    
+    .document-description-preview {
+        min-height: auto;
+    }
+}
+
+</style>
+
+<!-- JavaScript for Home Page -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Animate stats counter
+    const statNumbers = document.querySelectorAll('.stat-number');
+    
+    statNumbers.forEach(stat => {
+        const target = parseInt(stat.getAttribute('data-count'));
+        const duration = 2000; // 2 seconds
+        const step = target / (duration / 16); // 60fps
+        let current = 0;
+        
+        const updateCounter = () => {
+            current += step;
+            if (current < target) {
+                stat.textContent = Math.floor(current);
+                requestAnimationFrame(updateCounter);
+            } else {
+                stat.textContent = target;
+            }
+        };
+        
+        // Start counter when element is in viewport
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    updateCounter();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(stat);
+    });
+    
+    // Add animation to elements
+    const animatedElements = document.querySelectorAll('.service-card, .news-card, .document-card');
+    
+    animatedElements.forEach((element, index) => {
+        element.classList.add('fade-in-up');
+        element.style.animationDelay = `${index * 0.1}s`;
+    });
+    
+    // Smooth scroll for navigation
+    const quickNavItems = document.querySelectorAll('.quick-nav-item');
+    
+    quickNavItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    const offset = 80;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+    
+    // Add hover effect to quick nav items
+    quickNavItems.forEach(item => {
+        const icon = item.querySelector('.quick-nav-icon');
+        
+        item.addEventListener('mouseenter', function() {
+            if (icon) {
+                icon.style.transform = 'scale(1.1) rotate(5deg)';
+            }
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            if (icon) {
+                icon.style.transform = 'scale(1) rotate(0deg)';
+            }
+        });
+    });
+});
+
+    // Tambahkan juga smooth scroll untuk tombol "Pelayanan Kami" di hero section
+    const serviceBtn = document.querySelector('a[href="#struktur')
+    if (serviceBtn && !serviceBtn.classList.contains('btn-navigation')) {
+        serviceBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector('#struktur')
+            if (target) {
+                const offset = 80;
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+});
+</script>
+
+{% endblock %}

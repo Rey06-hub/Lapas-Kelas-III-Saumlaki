@@ -1,0 +1,593 @@
+<!-- templates/news/news_detail.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ news.title }} - Lapas Kelas III Saumlaki{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb Navigation -->
+<div class="container-fluid py-3" style="background: rgba(26, 35, 126, 0.05);">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'home' %}" class="text-decoration-none text-primary">
+                        <i class="fas fa-home"></i>
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{% url 'news_list' %}" class="text-decoration-none text-primary">Berita</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">{{ news.title|truncatechars:30 }}</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<!-- Article Header -->
+<div class="container-fluid py-4" style="
+    background: linear-gradient(135deg, rgba(26, 35, 126, 0.05) 0%, rgba(26, 35, 126, 0.1) 100%);
+    border-bottom: 1px solid rgba(26, 35, 126, 0.1);
+">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="article-header">
+                    <!-- Category Badge -->
+                    <div class="mb-3">
+                        <a href="{% url 'news_list' %}?category={{ news.category.id }}" 
+                           class="badge category-badge">
+                            <i class="fas fa-folder me-1"></i>{{ news.category.name|default:"Umum" }}
+                        </a>
+                    </div>
+                    
+                    <!-- Article Title -->
+                    <h1 class="article-title mb-4">{{ news.title }}</h1>
+                    
+                    <!-- Article Meta -->
+                    <div class="article-meta d-flex flex-wrap align-items-center mb-4">
+                        <div class="meta-item me-4 mb-2">
+                            <i class="fas fa-user text-primary me-2"></i>
+                            <span class="text-muted">{{ news.author|default:"Admin Lapas" }}</span>
+                        </div>
+                        <div class="meta-item me-4 mb-2">
+                            <i class="fas fa-calendar-alt text-primary me-2"></i>
+                            <span class="text-muted">{{ news.published_date|date:"d F Y, H:i" }}</span>
+                        </div>
+                        <div class="meta-item me-4 mb-2">
+                            <i class="fas fa-eye text-primary me-2"></i>
+                            <span class="text-muted">{{ news.views|default:0 }} dilihat</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Article Content -->
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <!-- Article Content -->
+            <div class="col-lg-8 mb-5">
+                <!-- Featured Image -->
+                {% if news.image %}
+                <div class="article-featured-image mb-5">
+                    <img src="{{ news.image.url }}" 
+                         alt="{{ news.title }}" 
+                         class="img-fluid rounded shadow-sm"
+                         style="width: 100%; height: 400px; object-fit: cover;">
+                    {% if news.image_caption %}
+                    <p class="text-center text-muted mt-2" style="font-size: 0.9rem;">
+                        <em>{{ news.image_caption }}</em>
+                    </p>
+                    {% endif %}
+                </div>
+                {% endif %}
+                
+                <!-- Article Content -->
+                <div class="article-content">
+                    <div class="content-body">
+                        {{ news.content|safe }}
+                    </div>
+                    
+                    <!-- Article Footer -->
+                    <div class="article-footer mt-5 pt-4 border-top">
+                        <div class="d-flex flex-wrap align-items-center justify-content-between">
+                            <div class="tags mb-3">
+                                <span class="text-muted me-2">
+                                    <i class="fas fa-tags text-primary"></i>
+                                </span>
+                                {% if news.category %}
+                                <a href="{% url 'news_list' %}?category={{ news.category.id }}" 
+                                   class="badge bg-light text-dark me-2 mb-2">
+                                    {{ news.category.name }}
+                                </a>
+                                {% endif %}
+                                <!-- Tambahkan tag lain jika ada -->
+                            </div>
+                            <div class="share-buttons mb-3">
+                                <span class="text-muted me-2">Bagikan:</span>
+                                <a href="#" class="btn btn-sm btn-outline-primary me-2 mb-2">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm btn-outline-primary me-2 mb-2">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm btn-outline-primary me-2 mb-2">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm btn-outline-primary mb-2">
+                                    <i class="fas fa-link"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Navigation -->
+                <div class="article-navigation mt-5">
+                    <div class="d-flex justify-content-between">
+                        {% if previous_news %}
+                        <a href="{% url 'news_detail' previous_news.slug %}" 
+                           class="btn btn-outline-primary">
+                            <i class="fas fa-arrow-left me-2"></i>Berita Sebelumnya
+                        </a>
+                        {% else %}
+                        <div></div>
+                        {% endif %}
+                        
+                        <a href="{% url 'news_list' %}" class="btn btn-primary">
+                            <i class="fas fa-list me-2"></i>Semua Berita
+                        </a>
+                        
+                        {% if next_news %}
+                        <a href="{% url 'news_detail' next_news.slug %}" 
+                           class="btn btn-outline-primary">
+                            Berita Selanjutnya <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                        {% else %}
+                        <div></div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- Related News -->
+                {% if related_news %}
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header" style="
+                        background: linear-gradient(135deg, #1a237e 0%, #5563cf 100%);
+                        color: white;
+                        border: none;
+                    ">
+                        <h5 class="mb-0">
+                            <i class="fas fa-newspaper me-2"></i>Berita Terkait
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        {% for related in related_news %}
+                        <div class="related-news-item mb-3 pb-3 {% if not forloop.last %}border-bottom{% endif %}">
+                            <a href="{% url 'news_detail' related.slug %}" class="text-decoration-none">
+                                <div class="d-flex align-items-start">
+                                    <div class="flex-shrink-0 me-3">
+                                        {% if related.image %}
+                                        <img src="{{ related.image.url }}" 
+                                             alt="{{ related.title }}"
+                                             class="rounded"
+                                             style="width: 80px; height: 80px; object-fit: cover;">
+                                        {% else %}
+                                        <div class="rounded d-flex align-items-center justify-content-center" 
+                                             style="width: 80px; height: 80px; 
+                                                    background: linear-gradient(135deg, #1a237e 0%, #5563cf 100%); 
+                                                    color: white;">
+                                            <i class="fas fa-newspaper"></i>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1 text-dark" style="font-size: 0.95rem; line-height: 1.3;">
+                                            {{ related.title|truncatechars:60 }}
+                                        </h6>
+                                        <div class="d-flex align-items-center mt-1">
+                                            <small class="text-muted me-2">
+                                                <i class="fas fa-calendar-alt me-1"></i>
+                                                {{ related.published_date|date:"d M" }}
+                                            </small>
+                                            <small class="text-muted">
+                                                <i class="fas fa-eye me-1"></i>
+                                                {{ related.views|default:0 }}
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Popular News -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header" style="
+                        background: linear-gradient(135deg, #1a237e 0%, #5563cf 100%);
+                        color: white;
+                        border: none;
+                    ">
+                        <h5 class="mb-0">
+                            <i class="fas fa-fire me-2"></i>Berita Populer
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Data akan diisi via JavaScript atau context -->
+                        <p class="text-muted mb-0 text-center" style="font-size: 0.9rem;">
+                            <i class="fas fa-spinner fa-spin me-2"></i>
+                            Memuat berita populer...
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Categories -->
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header" style="
+                        background: linear-gradient(135deg, #1a237e 0%, #5563cf 100%);
+                        color: white;
+                        border: none;
+                    ">
+                        <h5 class="mb-0">
+                            <i class="fas fa-folder me-2"></i>Kategori Berita
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2">
+                                <a href="{% url 'news_list' %}" 
+                                   class="category-link d-flex align-items-center text-decoration-none p-2 rounded">
+                                    <i class="fas fa-list me-3 text-primary"></i>
+                                    <span class="d-block">Semua Berita</span>
+                                </a>
+                            </li>
+                            <!-- Categories akan diisi via context -->
+                            <li class="mb-2">
+                                <a href="#" 
+                                   class="category-link d-flex align-items-center text-decoration-none p-2 rounded">
+                                    <i class="fas fa-folder me-3 text-primary"></i>
+                                    <span class="d-block">Informasi Umum</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Style untuk Halaman Detail Berita -->
+<style>
+    /* Breadcrumb */
+    .breadcrumb {
+        background: transparent;
+        padding: 0.5rem 0;
+        margin-bottom: 0;
+    }
+    
+    .breadcrumb-item + .breadcrumb-item::before {
+        color: #1a237e;
+    }
+    
+    /* Article Header */
+    .article-header {
+        padding: 1rem 0;
+    }
+    
+    .category-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #1a237e, #5563cf);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .category-badge:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(26, 35, 126, 0.3);
+    }
+    
+    .article-title {
+        color: #1a237e;
+        font-weight: 700;
+        line-height: 1.3;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .article-meta .meta-item {
+        display: flex;
+        align-items: center;
+        font-size: 0.9rem;
+    }
+    
+    /* Article Content */
+    .article-featured-image {
+        overflow: hidden;
+        border-radius: 10px;
+    }
+    
+    .article-featured-image img {
+        transition: transform 0.5s ease;
+    }
+    
+    .article-featured-image:hover img {
+        transform: scale(1.02);
+    }
+    
+    .content-body {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #333;
+    }
+    
+    .content-body p {
+        margin-bottom: 1.5rem;
+    }
+    
+    .content-body h2, 
+    .content-body h3, 
+    .content-body h4 {
+        color: #1a237e;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+    
+    .content-body img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin: 1.5rem 0;
+    }
+    
+    .content-body blockquote {
+        border-left: 4px solid #1a237e;
+        padding-left: 1.5rem;
+        margin: 2rem 0;
+        font-style: italic;
+        color: #555;
+    }
+    
+    .content-body ul,
+    .content-body ol {
+        margin-bottom: 1.5rem;
+        padding-left: 2rem;
+    }
+    
+    /* Related News Items */
+    .related-news-item {
+        transition: all 0.3s ease;
+    }
+    
+    .related-news-item:hover {
+        transform: translateX(5px);
+        background: rgba(26, 35, 126, 0.03);
+        border-radius: 8px;
+        margin-left: -5px;
+        margin-right: -5px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    
+    /* Category Links */
+    .category-link {
+        transition: all 0.3s ease;
+        color: #333;
+        border-left: 3px solid transparent;
+        border-radius: 8px;
+    }
+    
+    .category-link:hover {
+        background: rgba(26, 35, 126, 0.08);
+        border-left-color: #1a237e;
+        padding-left: 20px;
+        color: #1a237e;
+        transform: translateX(5px);
+    }
+    
+    /* Article Navigation */
+    .article-navigation .btn {
+        border-radius: 50px;
+        padding: 0.5rem 1.5rem;
+        font-weight: 600;
+    }
+    
+    /* Responsive */
+    @media (max-width: 992px) {
+        .article-title {
+            font-size: 1.75rem;
+        }
+        
+        .content-body {
+            font-size: 1.05rem;
+        }
+        
+        .article-navigation .btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .article-title {
+            font-size: 1.5rem;
+        }
+        
+        .article-meta {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .meta-item {
+            margin-bottom: 0.5rem !important;
+        }
+        
+        .article-featured-image img {
+            height: 300px;
+        }
+        
+        .content-body {
+            font-size: 1rem;
+        }
+        
+        .article-navigation {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .article-navigation .btn {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .article-title {
+            font-size: 1.3rem;
+        }
+        
+        .article-featured-image img {
+            height: 250px;
+        }
+        
+        .content-body h2 {
+            font-size: 1.3rem;
+        }
+        
+        .content-body h3 {
+            font-size: 1.2rem;
+        }
+    }
+</style>
+
+<!-- JavaScript untuk Halaman Detail Berita -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add animation to elements
+    const articleContent = document.querySelector('.article-content');
+    if (articleContent) {
+        articleContent.classList.add('fade-in');
+    }
+    
+    // Handle images in content
+    const contentImages = document.querySelectorAll('.content-body img');
+    contentImages.forEach(img => {
+        img.classList.add('img-fluid', 'rounded', 'shadow-sm');
+        img.style.margin = '1.5rem 0';
+    });
+    
+    // Add smooth scrolling for internal links
+    const internalLinks = document.querySelectorAll('.content-body a[href^="#"]');
+    internalLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId !== '#') {
+                e.preventDefault();
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+    
+    // Add hover effect to related news
+    const relatedItems = document.querySelectorAll('.related-news-item');
+    relatedItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateX(8px)';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateX(0)';
+        });
+    });
+    
+    // Share buttons functionality
+    const shareButtons = document.querySelectorAll('.share-buttons a');
+    const currentUrl = window.location.href;
+    const currentTitle = document.title;
+    
+    shareButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            const platform = this.querySelector('i').className;
+            let shareUrl = '';
+            
+            if (platform.includes('facebook-f')) {
+                shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
+            } else if (platform.includes('twitter')) {
+                shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(currentTitle)}`;
+            } else if (platform.includes('whatsapp')) {
+                shareUrl = `https://wa.me/?text=${encodeURIComponent(currentTitle + ' ' + currentUrl)}`;
+            } else if (platform.includes('link')) {
+                // Copy to clipboard
+                navigator.clipboard.writeText(currentUrl).then(() => {
+                    alert('Link berita berhasil disalin!');
+                });
+                e.preventDefault();
+                return;
+            }
+            
+            if (shareUrl) {
+                window.open(shareUrl, '_blank', 'width=600,height=400');
+                e.preventDefault();
+            }
+        });
+    });
+    
+    // Fetch popular news for sidebar
+    function fetchPopularNews() {
+        fetch('/api/popular-news/') // Ganti dengan URL endpoint yang sesuai
+            .then(response => response.json())
+            .then(data => {
+                const container = document.querySelector('.card-body');
+                if (data.length > 0) {
+                    let html = '';
+                    data.slice(0, 3).forEach(news => {
+                        html += `
+                            <div class="popular-news-item mb-3 pb-3 border-bottom">
+                                <a href="${news.url}" class="text-decoration-none">
+                                    <h6 class="mb-1 text-dark" style="font-size: 0.9rem; line-height: 1.3;">
+                                        ${news.title}
+                                    </h6>
+                                    <small class="text-muted">
+                                        <i class="fas fa-eye me-1"></i>${news.views}
+                                    </small>
+                                </a>
+                            </div>
+                        `;
+                    });
+                    container.innerHTML = html;
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching popular news:', error);
+            });
+    }
+    
+    // Uncomment untuk aktifkan fetch popular news
+    // fetchPopularNews();
+});
+</script>
+
+{% endblock %}

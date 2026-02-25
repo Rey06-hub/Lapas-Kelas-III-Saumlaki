@@ -1,0 +1,888 @@
+<!-- templates/news/news_list.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Berita - Lembaga Pemasyarakatan Kelas III Saumlaki{% endblock %}
+
+{% block content %}
+<!-- Hero Header untuk Berita -->
+<div class="container-fluid py-5" style="
+    background: linear-gradient(135deg, #1a237e 0%, #5563cf 50%, #f5f5f5 100%);
+    min-height: 40vh;
+    margin: 0;
+    padding: 0;
+">
+    <div class="row g-0" style="margin: 0; padding: 0;">
+        <div class="col-12 px-0">
+            <!-- Container untuk Konten Header -->
+            <div class="container">
+                <!-- Logo dan Teks Kementerian -->
+                <div class="text-center py-4">
+                    <!-- Logo Kementerian -->
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <img src="/media/tentang_kami/nobg.png" 
+                             alt="Logo Kemenkumham" 
+                             style="width: 80px; height: auto;"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/80x80/1a237e/ffffff?text=LOGO';">
+                    </div>
+                    
+                    <!-- Teks Kementerian -->
+                    <p class="text-white text-center mb-0" style="
+                        font-family: 'Arial', sans-serif;
+                        font-size: 0.9rem;
+                        opacity: 0.9;
+                        letter-spacing: 0.5px;
+                    ">
+                        Kementerian Imigrasi dan Pemasyarakatan Republik Indonesia
+                    </p>
+                </div>
+                
+                <!-- Nama Lembaga Pemasyarakatan -->
+                <div class="text-center py-1 my-1">
+                    <h1 class="display-6 text-white mb-3" style="
+                        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+                        font-family: 'Verdana', 'Geneva', Tahoma, sans-serif;
+                        font-weight: 700;
+                        letter-spacing: 1.5px;
+                        line-height: 1.3;
+                    ">
+                        BERITA & INFORMASI<br>
+                        LAPAS KELAS III SAUMLAKI
+                    </h1>
+                </div>
+                
+                <!-- Deskripsi -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 text-center">
+                        <p class="text-white mb-0" style="opacity: 0.95; line-height: 1.6;">
+                            Informasi terkini tentang kegiatan, program, dan perkembangan 
+                            Lembaga Pemasyarakatan Kelas III Saumlaki
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="container-fluid bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar Kiri - Kategori dan Berita Populer -->
+            <div class="col-lg-4 mb-4 mb-lg-0 order-lg-1 order-2">
+                <!-- Search Box -->
+                <div class="card border-0 shadow-lg mb-4">
+                    <div class="card-header" style="
+                        background: linear-gradient(135deg, #1a237e 0%, #5563cf 100%);
+                        color: white;
+                        border: none;
+                    ">
+                        <h5 class="mb-0">
+                            <i class="fas fa-search me-2"></i>Cari Berita
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="GET" action="{% url 'news_list' %}" id="newsSearchForm">
+                            <div class="input-group">
+                                <input type="text" 
+                                       name="q" 
+                                       class="form-control" 
+                                       placeholder="Cari berita ..."
+                                       value="{{ request.GET.q|default:'' }}"
+                                       aria-label="Search news">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                        
+                        {% if request.GET.q %}
+                        <div class="mt-3">
+                            <small class="text-muted">
+                                Hasil pencarian untuk: <strong>"{{ request.GET.q }}"</strong>
+                                <a href="{% url 'news_list' %}" class="text-danger ms-2">
+                                    <i class="fas fa-times"></i> Hapus filter
+                                </a>
+                            </small>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Kategori -->
+                <div class="card border-0 shadow-lg mb-4">
+                    <div class="card-header" style="
+                        background: linear-gradient(135deg, #1a237e 0%, #5563cf 100%);
+                        color: white;
+                        border: none;
+                    ">
+                        <h5 class="mb-0">
+                            <i class="fas fa-folder me-2"></i>Kategori Berita
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2">
+                                <a href="{% url 'news_list' %}" 
+                                class="category-link d-flex align-items-center text-decoration-none p-2 rounded {% if not category_id %}active-category{% endif %}">
+                                    <i class="fas fa-list me-3 text-primary"></i>
+                                    <div>
+                                        <span class="d-block">Semua Berita</span>
+                                        <small class="text-muted">{{ total_news_count }} berita</small>
+                                    </div>
+                                </a>
+                            </li>
+                            {% for category in categories %}
+                            <li class="mb-2">
+                                <a href="{% url 'news_list' %}?category={{ category.id }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}" 
+                                class="category-link d-flex align-items-center text-decoration-none p-2 rounded {% if category_id == category.id %}active-category{% endif %}">
+                                    <i class="fas fa-folder me-3 text-primary"></i>
+                                    <div>
+                                        <span class="d-block">{{ category.name }}</span>
+                                        <small class="text-muted">{{ category.news_count }} berita</small>
+                                    </div>
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Berita Populer -->
+                {% if popular_news %}
+                <div class="card border-0 shadow-lg">
+                    <div class="card-header" style="
+                        background: linear-gradient(135deg, #1a237e 0%, #5563cf 100%);
+                        color: white;
+                        border: none;
+                    ">
+                        <h5 class="mb-0">
+                            <i class="fas fa-fire me-2"></i>Berita Populer
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        {% for news in popular_news|slice:":5" %}
+                        <div class="popular-news-item mb-3 pb-3 {% if not forloop.last %}border-bottom{% endif %}">
+                            <a href="{% url 'news_detail' news.slug %}" class="text-decoration-none">
+                                <div class="d-flex align-items-start">
+                                    <div class="flex-shrink-0 me-3">
+                                        {% if news.image %}
+                                        <img src="{{ news.image.url }}" 
+                                             alt="{{ news.title }}"
+                                             class="rounded"
+                                             style="width: 60px; height: 60px; object-fit: cover;">
+                                        {% else %}
+                                        <div class="rounded d-flex align-items-center justify-content-center" 
+                                             style="width: 60px; height: 60px; background: linear-gradient(135deg, #1a237e 0%, #5563cf 100%); color: white;">
+                                            <i class="fas fa-newspaper"></i>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1 text-dark" style="font-size: 0.9rem; line-height: 1.3;">{{ news.title|truncatechars:60 }}</h6>
+                                        <div class="d-flex align-items-center mt-1">
+                                            <small class="text-muted me-2">
+                                                <i class="fas fa-eye me-1"></i>
+                                                {{ news.views|default:0 }}
+                                            </small>
+                                            <small class="text-muted">
+                                                <i class="fas fa-calendar-alt me-1"></i>
+                                                {{ news.published_date|date:"d M" }}
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Konten Utama Berita -->
+            <div class="col-lg-8 order-lg-2 order-1">
+                <!-- Filter dan Statistik -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <h5 class="mb-0 text-primary">
+                                    <i class="fas fa-newspaper me-2"></i>
+                                    {% if category_name %}
+                                        Berita: {{ category_name }}
+                                    {% elif request.GET.q %}
+                                        Hasil Pencarian
+                                    {% else %}
+                                        Semua Berita
+                                    {% endif %}
+                                </h5>
+                                {% if request.GET.q %}
+                                <p class="text-muted mb-0 mt-1">
+                                    Menampilkan {{ page_obj.paginator.count }} hasil untuk "{{ request.GET.q }}"
+                                </p>
+                                {% endif %}
+                            </div>
+                            <div class="btn-group" role="group">
+                                <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if category_id %}category={{ category_id }}&{% endif %}sort=latest" 
+                                class="btn btn-outline-primary btn-sm {% if not request.GET.sort or request.GET.sort == 'latest' %}active{% endif %}">
+                                    <i class="fas fa-sort-amount-down me-1"></i>Terbaru
+                                </a>
+                                <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if category_id %}category={{ category_id }}&{% endif %}sort=popular" 
+                                class="btn btn-outline-primary btn-sm {% if request.GET.sort == 'popular' %}active{% endif %}">
+                                    <i class="fas fa-fire me-1"></i>Populer
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Carousel Berita Utama -->
+                {% if featured_news %}
+                <div class="card border-0 shadow-lg mb-5">
+                    <div class="card-body p-0">
+                        <div id="newsCarousel" class="carousel slide" data-bs-ride="carousel">
+                            <!-- Indicators -->
+                            <div class="carousel-indicators">
+                                {% for news in featured_news %}
+                                <button type="button" data-bs-target="#newsCarousel" data-bs-slide-to="{{ forloop.counter0 }}" 
+                                        class="{% if forloop.first %}active{% endif %}"
+                                        aria-current="{% if forloop.first %}true{% endif %}" 
+                                        aria-label="Slide {{ forloop.counter }}">
+                                </button>
+                                {% endfor %}
+                            </div>
+                            
+                            <!-- Slides -->
+                            <div class="carousel-inner rounded">
+                                {% for news in featured_news %}
+                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                    <div class="carousel-slide-content position-relative">
+                                        {% if news.image %}
+                                        <img src="{{ news.image.url }}" 
+                                             class="d-block w-100" 
+                                             alt="{{ news.title }}"
+                                             style="height: 400px; object-fit: cover;">
+                                        {% else %}
+                                        <div class="d-block w-100" 
+                                             style="height: 400px; background: linear-gradient(135deg, #1a237e 0%, #5563cf 100%); 
+                                                    display: flex; align-items: center; justify-content: center; color: white;">
+                                            <i class="fas fa-newspaper fa-6x"></i>
+                                        </div>
+                                        {% endif %}
+                                        
+                                        <!-- Overlay Content -->
+                                        <div class="carousel-caption">
+                                            <div class="category-badge mb-2">
+                                                <span class="badge bg-warning text-dark">
+                                                    <i class="fas fa-star me-1"></i>Utama
+                                                </span>
+                                            </div>
+                                            <h3 class="mb-2">{{ news.title|truncatechars:80 }}</h3>
+                                            <p class="mb-3 d-none d-md-block">{{ news.content|striptags|truncatewords:20 }}</p>
+                                            <a href="{% url 'news_detail' news.slug %}" class="btn btn-light btn-sm">
+                                                Baca Selengkapnya <i class="fas fa-arrow-right ms-2"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            
+                            <!-- Controls -->
+                            <button class="carousel-control-prev" type="button" data-bs-target="#newsCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#newsCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Grid Berita -->
+                {% if page_obj %}
+                <div class="row" id="newsGrid">
+                    {% for news in page_obj %}
+                    <div class="col-md-6 col-lg-6 mb-4">
+                        <div class="news-grid-card h-100">
+                            <div class="news-grid-image position-relative">
+                                {% if news.image %}
+                                <img src="{{ news.image.url }}" 
+                                     class="img-fluid" 
+                                     alt="{{ news.title }}"
+                                     style="height: 200px; width: 100%; object-fit: cover;">
+                                {% else %}
+                                <div class="no-image-placeholder d-flex align-items-center justify-content-center" 
+                                     style="height: 200px; background: linear-gradient(135deg, #1a237e 0%, #5563cf 100%); color: white;">
+                                    <i class="fas fa-newspaper fa-4x"></i>
+                                </div>
+                                {% endif %}
+                                <div class="news-grid-date">
+                                    <span class="day">{{ news.published_date|date:"d" }}</span>
+                                    <span class="month">{{ news.published_date|date:"M"|upper }}</span>
+                                </div>
+                                {% if news.category %}
+                                <div class="news-grid-category">
+                                    <span class="badge bg-primary">{{ news.category.name }}</span>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="news-grid-content p-3">
+                                <h5 class="news-grid-title mb-2">{{ news.title|truncatechars:70 }}</h5>
+                                <p class="news-grid-excerpt mb-3">{{ news.content|striptags|truncatewords:20 }}</p>
+                                
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="news-grid-meta">
+                                        <small class="text-muted me-3">
+                                            <i class="fas fa-calendar-alt me-1"></i>
+                                            {{ news.published_date|date:"d M Y" }}
+                                        </small>
+                                        <small class="text-muted">
+                                            <i class="fas fa-eye me-1"></i>
+                                            {{ news.views|default:0 }}
+                                        </small>
+                                    </div>
+                                    <a href="{% url 'news_detail' news.slug %}" class="news-grid-read-more">
+                                        Baca <i class="fas fa-arrow-right ms-1"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <!-- Tidak ada berita -->
+                <div class="text-center py-5">
+                    <div class="empty-state">
+                        <i class="fas fa-newspaper fa-4x text-muted mb-4"></i>
+                        <h4 class="text-muted mb-3">
+                            {% if request.GET.q %}
+                                Tidak ditemukan berita dengan kata kunci "{{ request.GET.q }}"
+                            {% elif category_name %}
+                                Tidak ada berita dalam kategori "{{ category_name }}"
+                            {% else %}
+                                Belum ada berita tersedia
+                            {% endif %}
+                        </h4>
+                        <p class="text-muted mb-4">Berita terbaru akan segera dipublikasikan</p>
+                        <a href="{% url 'news_list' %}" class="btn btn-primary">
+                            <i class="fas fa-redo me-2"></i>Lihat Semua Berita
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Pagination -->
+                {% if page_obj.has_other_pages %}
+                <nav aria-label="Page navigation" class="mt-5">
+                    <ul class="pagination justify-content-center">
+                        {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if category_id %}&category={{ category_id }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">
+                                <i class="fas fa-chevron-left me-2"></i>Sebelumnya
+                            </a>
+                        </li>
+                        {% endif %}
+                        
+                        {% for num in page_obj.paginator.page_range %}
+                            {% if page_obj.number == num %}
+                            <li class="page-item active">
+                                <span class="page-link">{{ num }}</span>
+                            </li>
+                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if category_id %}&category={{ category_id }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">{{ num }}</a>
+                            </li>
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if category_id %}&category={{ category_id }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">
+                                Selanjutnya <i class="fas fa-chevron-right ms-2"></i>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    <div class="text-center mt-2">
+                        <small class="text-muted">
+                            Menampilkan {{ page_obj.start_index }} - {{ page_obj.end_index }} dari {{ page_obj.paginator.count }} berita
+                        </small>
+                    </div>
+                </nav>
+                {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Info Jumlah Berita -->
+<div class="container-fluid py-4" style="background: rgba(26, 35, 126, 0.05);">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4 mb-3 mb-md-0">
+                <div class="info-box">
+                    <div class="info-icon mb-2" style="color: #1a237e; font-size: 2rem;">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <div class="info-number mb-2" style="color: #1a237e; font-size: 2rem; font-weight: 700;">
+                        {{ total_news_count|default:"0" }}
+                    </div>
+                    <div class="info-text" style="color: #666; font-weight: 600;">Total Berita</div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3 mb-md-0">
+                <div class="info-box">
+                    <div class="info-icon mb-2" style="color: #1a237e; font-size: 2rem;">
+                        <i class="fas fa-folder"></i>
+                    </div>
+                    <div class="info-number mb-2" style="color: #1a237e; font-size: 2rem; font-weight: 700;">
+                        {{ categories.count|default:"0" }}
+                    </div>
+                    <div class="info-text" style="color: #666; font-weight: 600;">Kategori</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="info-box">
+                    <div class="info-icon mb-2" style="color: #1a237e; font-size: 2rem;">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="info-number mb-2" style="color: #1a237e; font-size: 2rem; font-weight: 700;">
+                        {{ current_year }}
+                    </div>
+                    <div class="info-text" style="color: #666; font-weight: 600;">Tahun Berjalan</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Style Khusus untuk Halaman Berita -->
+<style>
+    /* Header Styles */
+    .display-6 {
+        font-size: 2rem;
+    }
+    
+    /* Category Links */
+    .category-link {
+        transition: all 0.3s ease;
+        color: #333;
+        border-left: 3px solid transparent;
+        border-radius: 8px;
+    }
+    
+    .category-link:hover {
+        background: rgba(26, 35, 126, 0.08);
+        border-left-color: #1a237e;
+        padding-left: 20px;
+        color: #1a237e;
+        transform: translateX(5px);
+    }
+    
+    .active-category {
+        background: rgba(26, 35, 126, 0.1) !important;
+        border-left-color: #1a237e !important;
+        color: #1a237e !important;
+        font-weight: 600;
+    }
+    
+    .category-link i {
+        transition: all 0.3s ease;
+    }
+    
+    .category-link:hover i {
+        transform: scale(1.2);
+        color: #ffd700;
+    }
+    
+    /* Carousel Styles */
+    .carousel-slide-content {
+        position: relative;
+    }
+    
+    .carousel-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1.5rem;
+        background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.5), transparent);
+        color: white;
+        text-align: left;
+    }
+    
+    .carousel-indicators button {
+        width: 12px !important;
+        height: 12px !important;
+        border-radius: 50%;
+        margin: 0 5px;
+        background-color: rgba(255, 255, 255, 0.5);
+        border: none;
+    }
+    
+    .carousel-indicators button.active {
+        background-color: #ffd700;
+        transform: scale(1.2);
+    }
+    
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 45px;
+        height: 45px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(26, 35, 126, 0.8);
+        border-radius: 50%;
+        margin: 0 15px;
+        opacity: 0.8;
+        transition: all 0.3s ease;
+    }
+    
+    .carousel-control-prev:hover,
+    .carousel-control-next:hover {
+        background: #1a237e;
+        opacity: 1;
+        transform: translateY(-50%) scale(1.1);
+    }
+    
+    /* News Grid Cards */
+    .news-grid-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        border: 1px solid #eee;
+        transition: all 0.3s ease;
+    }
+    
+    .news-grid-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 25px rgba(26, 35, 126, 0.15);
+        border-color: #1a237e;
+    }
+    
+    .news-grid-image {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .news-grid-card:hover .news-grid-image img {
+        transform: scale(1.05);
+    }
+    
+    .news-grid-image img {
+        transition: transform 0.5s ease;
+    }
+    
+    .news-grid-date {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: #1a237e;
+        color: white;
+        padding: 8px 10px;
+        border-radius: 8px;
+        text-align: center;
+        line-height: 1;
+        min-width: 45px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+    
+    .news-grid-date .day {
+        font-size: 1.3rem;
+        font-weight: 700;
+        display: block;
+    }
+    
+    .news-grid-date .month {
+        font-size: 0.75rem;
+        opacity: 0.9;
+        letter-spacing: 1px;
+    }
+    
+    .news-grid-category {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+    }
+    
+    .news-grid-category .badge {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+        background: rgba(255, 255, 255, 0.9) !important;
+        color: #1a237e !important;
+        font-weight: 600;
+        border: 1px solid #1a237e;
+    }
+    
+    .news-grid-title {
+        color: #1a237e;
+        font-weight: 700;
+        line-height: 1.4;
+        min-height: 56px;
+        font-size: 1.1rem;
+    }
+    
+    .news-grid-excerpt {
+        color: #666;
+        line-height: 1.6;
+        font-size: 0.9rem;
+        min-height: 54px;
+    }
+    
+    .news-grid-read-more {
+        display: inline-block;
+        background: linear-gradient(135deg, #1a237e, #5563cf);
+        color: white;
+        padding: 6px 15px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.85rem;
+        transition: all 0.3s ease;
+    }
+    
+    .news-grid-read-more:hover {
+        background: linear-gradient(135deg, #5563cf, #1a237e);
+        transform: translateX(5px);
+        box-shadow: 0 5px 15px rgba(26, 35, 126, 0.3);
+        color: white;
+    }
+    
+    /* Popular News Items */
+    .popular-news-item {
+        transition: all 0.3s ease;
+    }
+    
+    .popular-news-item:hover {
+        transform: translateX(5px);
+        background: rgba(26, 35, 126, 0.03);
+        border-radius: 8px;
+        margin-left: -5px;
+        margin-right: -5px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    
+    /* Pagination */
+    .page-link {
+        color: #1a237e;
+        border: 1px solid #dee2e6;
+        padding: 0.5rem 1rem;
+        margin: 0 3px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .page-link:hover {
+        background: linear-gradient(135deg, rgba(26, 35, 126, 0.1), rgba(26, 35, 126, 0.2));
+        border-color: #1a237e;
+        color: #1a237e;
+    }
+    
+    .page-item.active .page-link {
+        background: linear-gradient(135deg, #1a237e 0%, #5563cf 100%);
+        border-color: #1a237e;
+        color: white;
+    }
+    
+    /* Info Box */
+    .info-box {
+        padding: 1.5rem;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+    
+    .info-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Empty State */
+    .empty-state {
+        padding: 3rem 1rem;
+    }
+    
+    /* Sort Buttons */
+    .btn-outline-primary.active {
+        background: linear-gradient(135deg, #1a237e 0%, #5563cf 100%);
+        color: white;
+        border-color: #1a237e;
+    }
+    
+    /* Animations */
+    .fade-in {
+        animation: fadeIn 0.8s ease-out;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .display-6 {
+            font-size: 1.5rem !important;
+        }
+        
+        .carousel-caption {
+            padding: 1rem;
+        }
+        
+        .carousel-caption h3 {
+            font-size: 1.2rem;
+        }
+        
+        .carousel-caption p {
+            display: none;
+        }
+        
+        .news-grid-title {
+            font-size: 1rem;
+            min-height: auto;
+        }
+        
+        .news-grid-excerpt {
+            min-height: auto;
+        }
+        
+        .page-link {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.9rem;
+        }
+        
+        .order-lg-1 {
+            order: 2;
+        }
+        
+        .order-lg-2 {
+            order: 1;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 35px;
+            height: 35px;
+            margin: 0 5px;
+        }
+        
+        .info-number {
+            font-size: 1.5rem !important;
+        }
+        
+        .info-icon {
+            font-size: 1.5rem !important;
+        }
+    }
+</style>
+
+<!-- JavaScript untuk Halaman Berita -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize carousel with auto slide
+    const newsCarousel = document.getElementById('newsCarousel');
+    if (newsCarousel) {
+        const carousel = new bootstrap.Carousel(newsCarousel, {
+            interval: 6000, // 6 seconds
+            wrap: true,
+            pause: 'hover'
+        });
+    }
+    
+    // Add animation to cards
+    const newsCards = document.querySelectorAll('.news-grid-card');
+    
+    newsCards.forEach((card, index) => {
+        card.classList.add('fade-in');
+        card.style.animationDelay = `${index * 0.1}s`;
+    });
+    
+    // Add hover effect to popular news
+    const popularNewsItems = document.querySelectorAll('.popular-news-item');
+    
+    popularNewsItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateX(8px)';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateX(0)';
+        });
+    });
+    
+    // Add animation to category links
+    const categoryLinks = document.querySelectorAll('.category-link');
+    
+    categoryLinks.forEach(link => {
+        link.addEventListener('mouseenter', function() {
+            const icon = this.querySelector('i');
+            if (icon) {
+                icon.style.transform = 'scale(1.2) rotate(5deg)';
+            }
+        });
+        
+        link.addEventListener('mouseleave', function() {
+            const icon = this.querySelector('i');
+            if (icon) {
+                icon.style.transform = 'scale(1) rotate(0deg)';
+            }
+        });
+    });
+    // Auto-submit form search dengan delay
+    const searchInput = document.querySelector('input[name="q"]');
+    if (searchInput) {
+        let timeout = null;
+        
+        searchInput.addEventListener('keyup', function(e) {
+            clearTimeout(timeout);
+            
+            timeout = setTimeout(function() {
+                if (e.target.value.length >= 2 || e.target.value.length === 0) {
+                    document.getElementById('newsSearchForm').submit();
+                }
+            }, 500);
+        });
+    }
+
+    // Highlight kata kunci pencarian di hasil
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchTerm = urlParams.get('q');
+    if (searchTerm) {
+        const newsTitles = document.querySelectorAll('.news-grid-title, .news-grid-excerpt');
+        
+        newsTitles.forEach(element => {
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            element.innerHTML = element.innerHTML.replace(
+                regex, 
+                '<span class="highlight" style="background-color: yellow; padding: 0 2px; border-radius: 2px;">$1</span>'
+            );
+        });
+    }
+    
+    // Search form submission with loading
+    const searchForm = document.getElementById('newsSearchForm');
+    if (searchForm) {
+        searchForm.addEventListener('submit', function(e) {
+            const searchInput = this.querySelector('input[name="q"]');
+            if (searchInput.value.trim() === '') {
+                e.preventDefault();
+                window.location.href = "{% url 'news_list' %}";
+            }
+        });
+    }
+});
+</script>
+
+{% endblock %}

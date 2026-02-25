@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Lembaga Pemasyarakatan Kelas III Saumlaki{% endblock %}</title>
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #1a237e;
+            --secondary-color: #5563cf;
+            --accent-color: #ffd700;
+            --light-color: #f5f5f5;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background: linear-gradient(135deg, rgba(26, 35, 126, 0.95) 0%, rgba(85, 99, 207, 0.95) 100%);
+            backdrop-filter: blur(10px);
+            padding: 0.75rem 0;
+            border-bottom: 3px solid var(--accent-color);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar.fixed-top {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 1030;
+        }
+        
+        .navbar.scrolled {
+            background: linear-gradient(135deg, rgba(26, 35, 126, 0.98) 0%, rgba(85, 99, 207, 0.98) 100%);
+            padding: 0.5rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand img {
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled .navbar-brand img {
+            transform: scale(0.9);
+        }
+        
+        .navbar-brand span {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-left: 5px;
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            margin: 0 0.25rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent-color) !important;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 80%;
+        }
+        
+        .navbar-toggler {
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 0.25rem 0.5rem;
+        }
+        
+        .navbar-toggler:focus {
+            box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.5);
+        }
+        
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        
+        /* Dropdown Menu */
+        .dropdown-menu {
+            background: rgba(26, 35, 126, 0.95);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .dropdown-item {
+            color: rgba(255, 255, 255, 0.9);
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-item:hover {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--accent-color);
+            padding-left: 1.5rem;
+        }
+        
+        /* Footer Styles */
+        .footer {
+            background: linear-gradient(135deg, #1a237e 0%, #5563cf 100%);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent-color);
+        }
+        
+        .footer h5 {
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer h5::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .footer a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer a:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+        
+        .footer ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-contact p {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .footer-contact i {
+            color: var(--accent-color);
+            margin-right: 10px;
+            margin-top: 3px;
+            width: 20px;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 1.5rem;
+        }
+        
+        .footer-social a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-social a:hover {
+            background: var(--accent-color);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.5rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        .footer-bottom p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-color);
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+        }
+        
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .back-to-top:hover {
+            background: #ffed4e;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
+        }
+        
+        /* Main Content */
+        main {
+            min-height: calc(100vh - 300px);
+            padding-top: 76px; /* Height of navbar */
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                background: rgba(26, 35, 126, 0.98);
+                padding: 1rem;
+                border-radius: 10px;
+                margin-top: 10px;
+                border: 1px solid rgba(255, 215, 0, 0.3);
+                backdrop-filter: blur(10px);
+            }
+            
+            .nav-link {
+                margin: 0.25rem 0;
+                padding: 0.75rem 1rem !important;
+            }
+            
+            .footer {
+                text-align: center;
+            }
+            
+            .footer h5::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .footer-social {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 1rem;
+            }
+            
+            .navbar-brand img {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+        
+        /* Animation for page content */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="/media/tentang_kami/nobg.png" 
+                     alt="Logo Kemenkumham" 
+                     style="width: 40px; height: auto;"
+                     onerror="this.onerror=null; this.src='https://via.placeholder.com/40x40/1a237e/ffffff?text=LOGO';">
+                <div>
+                    <div style="line-height: 1.1;">LAPAS KELAS III</div>
+                    <small style="font-size: 0.7rem; opacity: 0.8;">SAUMLAKI</small>
+                </div>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">
+                            <i class="fas fa-home me-1"></i>Beranda
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if '/tentang-kami/' in request.path %}active{% endif %}" href="{% url 'about_us' %}">
+                            <i class="fas fa-info-circle me-1"></i>Tentang Kami
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if '/berita/' in request.path %}active{% endif %}" href="{% url 'news_list' %}">
+                            <i class="fas fa-newspaper me-1"></i>Berita
+                        </a>
+                    <!-- Cari bagian navbar dan perbaiki -->
+                    <li class="nav-item">
+                        <a class="nav-link {% if '/dokumen/' in request.path %}active{% endif %}" href="{% url 'document_list' %}">
+                            <i class="fas fa-file-alt me-1"></i>Dokumen Publik
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if '/kontak/' in request.path %}active{% endif %}" href="{% url 'contact' %}">
+                            <i class="fas fa-map-marker-alt me-1"></i>Kontak
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="fade-in">
+        {% block content %}
+        <!-- Konten akan diisi oleh template anak -->
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <!-- Logo dan Deskripsi -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="/media/tentang_kami/nobg.png" 
+                             alt="Logo Kemenkumham" 
+                             style="width: 60px; height: auto; margin-right: 15px;"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/60x60/1a237e/ffffff?text=LOGO';">
+                        <div>
+                            <h5 class="mb-1">LAPAS KELAS III SAUMLAKI</h5>
+                            <p style="font-size: 0.85rem; opacity: 0.8;">Kementerian Imigrasi dan Pemasyarakatan Republik Indonesia</p>
+                        </div>
+                    </div>
+                    <p style="opacity: 0.9; line-height: 1.6;">
+                        Lembaga Pemasyarakatan Kelas III Saumlaki berkomitmen untuk melaksanakan sistem pemasyarakatan yang berorientasi pada pembinaan, pendidikan, dan pemberdayaan warga binaan.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" title="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Link Cepat -->
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Link Cepat</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'home' %}"><i class="fas fa-chevron-right me-2"></i>Beranda</a></li>
+                        <li><a href="{% url 'document_list' %}"><i class="fas fa-chevron-right me-2"></i>Dokumen Publik</a></li>
+                        <li><a href="{% url 'contact' %}"><i class="fas fa-chevron-right me-2"></i>Kontak</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Kontak -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Kontak Kami</h5>
+                    <div class="footer-contact">
+                        <p>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>
+                                Lembaga Pemasyarakatan Kelas III Saumlaki<br>
+                                Jl. Raya Saumlaki - Wonreli<br>
+                                Saumlaki, Maluku Tenggara Barat 97464
+                            </span>
+                        </p>
+                        <p>
+                            <i class="fas fa-phone-alt"></i>
+                            <span>(0918) 21018 / 21019</span>
+                        </p>
+                        <p>
+                            <i class="fas fa-fax"></i>
+                            <span>(0918) 21020</span>
+                        </p>
+                        <p>
+                            <i class="fas fa-envelope"></i>
+                            <span>lapas.saumlaki@kemenkumham.go.id</span>
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Jam Operasional -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Jam Pelayanan</h5>
+                    <div class="footer-contact">
+                        <p>
+                            <i class="fas fa-clock"></i>
+                            <span>
+                                <strong>Senin - Kamis:</strong><br>
+                                09.00 - 12.00 WIT<br>
+                                Istirahat <br>
+                                13.00 - 14.30
+                            </span>
+                        </p>
+                        <p>
+                            <i class="fas fa-clock"></i>
+                            <span>
+                                <strong>Jumat:</strong><br>
+                                09.00 - 11.00 WIT<br>
+                                TUTUP
+                            </span>
+                        </p>
+                        <p>
+                            <i class="fas fa-clock"></i>
+                            <span>
+                                <strong>Sabtu:</strong><br>
+                                09.00 - 12.00 WIT<br>
+                                TUTUP
+                            </span>
+                        </p>
+                        <p>
+                            <i class="fas fa-calendar-times"></i>
+                            <span>
+                                <strong>Minggu:</strong><br>
+                                Tutup
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; {% now "Y" %} Lembaga Pemasyarakatan Kelas III Saumlaki. Hak Cipta Dilindungi.</p>
+                <p style="font-size: 0.8rem; opacity: 0.6;">
+                    "Kami tidak mengurung masa lalu, tapi mengelolanya menjadi bijak dengan memanusiakan manusia."
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Main JavaScript -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Navbar scroll effect
+        const navbar = document.querySelector('.navbar');
+        
+        function updateNavbar() {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }
+        
+        window.addEventListener('scroll', updateNavbar);
+        updateNavbar(); // Initial check
+        
+        // Back to Top Button
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        function updateBackToTopButton() {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        }
+        
+        window.addEventListener('scroll', updateBackToTopButton);
+        
+        backToTopButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Close mobile menu when clicking a link
+        const navLinks = document.querySelectorAll('.nav-link');
+        const navbarCollapse = document.querySelector('.navbar-collapse');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 992) { // Bootstrap lg breakpoint
+                    const bsCollapse = new bootstrap.Collapse(navbarCollapse);
+                    bsCollapse.hide();
+                }
+            });
+        });
+        
+        // Add active class to current page in navbar
+        const currentPath = window.location.pathname;
+        navLinks.forEach(link => {
+            const linkPath = link.getAttribute('href');
+            if (currentPath === linkPath || 
+                (linkPath !== '/' && currentPath.startsWith(linkPath))) {
+                link.classList.add('active');
+            }
+        });
+        
+        // Initialize tooltips
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    });
+    </script>
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html>
