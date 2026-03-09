@@ -12,9 +12,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-et45mrb)8emd4zh73r$$_el@46h&m&-k5+!d$c^mnz4l2(gjc0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
+# company_profile/settings.py
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'username.pythonanywhere.com']
+# Ganti 'username' dengan username PythonAnywhere Anda nanti.
 
 
 # Application definition
@@ -117,7 +121,9 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+# MEDIA_ROOT = BASE_DIR / 'media'
+# Direktori ini akan berada di luar folder proyek utama.
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 LANGUAGE_CODE = 'id'
 TIME_ZONE = 'Asia/Jakarta'
